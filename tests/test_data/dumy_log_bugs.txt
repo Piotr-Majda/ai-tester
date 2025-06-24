@@ -1,0 +1,28 @@
+Critical Bugs
+1. Stale Market Data due to Authentication Failure
+The Bug: The system is unable to ingest fresh market data because the API key for the data feed has expired. This is a critical failure because it means all financial calculations are being done on old, potentially incorrect data.
+Expected "Path to Reproduce": The agent should trace the logs backward from the [CRITICAL] error to see the story:
+The scheduled DataIngestion job begins.
+It attempts to connect to the NYSE_DataFeed_API.
+The connection fails with an [ERROR], explicitly stating the "API Key has expired".
+The system retries multiple times, failing each time for the same reason.
+After the final retry fails, the system logs the critical error and aborts the job.
+2. Report Generation Fails due to Calculation Error
+The Bug: A core feature, generating the 'Transaction Volume Q3' report, is completely broken by a TypeError during a calculation. This likely means some unexpected data (like a null value) is present in the database.
+Expected "Path to Reproduce":
+A user (analyst_jane) logs in and requests the 'Transaction Volume Q3' report.
+The system fetches the transaction data from the database.
+The AnalyticsEngine attempts to sum up the transaction amounts.
+The engine encounters a TypeError and crashes because it tries to add a number to a NoneType value, which is impossible.
+Minor Bugs
+1. Slow Database Query
+The Bug: A background job to pre-calculate risk exposure is taking too long because of a slow database query.
+Expected "Path to Reproduce":
+The AnalyticsEngine starts the 'Pre-calculate daily risk exposure' job.
+The system then logs a [WARNING] for a "Slow query detected" and even provides the exact SQL query that is causing the problem.
+2. Degraded Chart Rendering
+The Bug: A report's chart is missing its stylesheet (.css file), so it renders as a plain, ugly table instead of a rich visualization.
+Expected "Path to Reproduce":
+A user (manager_sue) requests the 'Q3 Growth Projections' report.
+The ReportGenerator logs a [WARNING] that the asset /charts/FancyChart.css could not be found.
+The system then logs that it is falling back to a basic HTML table.

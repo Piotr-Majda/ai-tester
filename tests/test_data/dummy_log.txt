@@ -1,0 +1,37 @@
+[2024-08-01 09:00:03,101] [INFO] [AuthService] User 'analyst_jane' logged in successfully.
+[2024-08-01 09:00:15,215] [INFO] [AnalyticsEngine] Starting background job: Pre-calculate daily risk exposure.
+[2024-08-01 09:00:18,451] [INFO] [DatabaseService] Executing query: SELECT * FROM trades WHERE trade_date > '2024-07-31'.
+[2024-08-01 09:00:24,982] [WARNING] [DatabaseService] Slow query detected. Execution time: 6981ms. Query: SELECT * FROM trades WHERE trade_date > '2024-07-31'.
+[2024-08-01 09:00:25,150] [INFO] [AnalyticsEngine] Background job 'Pre-calculate daily risk exposure' completed successfully.
+[2024-08-01 09:01:05,510] [INFO] [AuthService] User 'manager_sue' logged in successfully.
+[2024-08-01 09:01:10,832] [INFO] [ReportGenerator] User 'manager_sue' requested report: 'Q3 Growth Projections'.
+[2024-08-01 09:01:11,151] [INFO] [ReportGenerator] Aggregating data for 'Q3 Growth Projections'.
+[2024-08-01 09:01:12,305] [INFO] [ReportGenerator] Attempting to render chart 'growth_chart' with 'FancyChart.js'.
+[2024-08-01 09:01:12,351] [WARNING] [ReportGenerator] Asset not found: /charts/FancyChart.css. Chart may not render correctly.
+[2024-08-01 09:01:12,400] [INFO] [ReportGenerator] Fallback activated: Rendering 'growth_chart' data as a basic HTML table.
+[2024-08-01 09:01:12,998] [INFO] [ReportGenerator] Report 'Q3 Growth Projections' generated for 'manager_sue'.
+[2024-08-01 09:02:00,005] [INFO] [DataIngestion] Starting scheduled job: Ingest market data from primary feed.
+[2024-08-01 09:02:00,108] [INFO] [DataIngestion] Connecting to source 'NYSE_DataFeed_API'.
+[2024-08-01 09:02:01,212] [ERROR] [DataIngestion] Authentication failed for source 'NYSE_DataFeed_API'. API Key has expired.
+[2024-08-01 09:02:01,215] [INFO] [DataIngestion] Retrying connection to 'NYSE_DataFeed_API' (Attempt 1 of 2).
+[2024-08-01 09:02:06,333] [ERROR] [DataIngestion] Authentication failed for source 'NYSE_DataFeed_API'. API Key has expired.
+[2024-08-01 09:02:06,335] [INFO] [DataIngestion] Retrying connection to 'NYSE_DataFeed_API' (Attempt 2 of 2).
+[2024-08-01 09:02:11,451] [ERROR] [DataIngestion] Authentication failed for source 'NYSE_DataFeed_API'. API Key has expired.
+[2024-08-01 09:02:11,455] [CRITICAL] [DataIngestion] Aborting job. Failed to ingest market data from primary feed. System data is now stale.
+[2024-08-01 09:03:01,811] [INFO] [AuthService] User 'trader_john' logged in successfully.
+[2024-08-01 09:03:05,312] [INFO] [PortfolioManager] User 'trader_john' requested portfolio valuation.
+[2024-08-01 09:03:05,425] [WARNING] [AnalyticsEngine] Performing valuation using stale market data from '2024-07-31'. Results may be inaccurate.
+[2024-08-01 09:03:05,950] [INFO] [PortfolioManager] Portfolio valuation completed for 'trader_john'.
+[2024-08-01 09:04:10,100] [INFO] [AuthService] User 'admin' logged in successfully.
+[2024-08-01 09:04:15,200] [INFO] [AuthService] Admin 'admin' is accessing the user management panel.
+[2024-08-01 09:04:15,255] [WARNING] [AuthService] Deprecated function called: `get_all_users_legacy()`. This function will be removed in v3.0. Please use `get_all_users()` instead.
+[2024-08-01 09:05:01,130] [INFO] [ReportGenerator] User 'analyst_jane' requested report: 'Transaction Volume Q3'.
+[2024-08-01 09:05:01,250] [INFO] [DatabaseService] Fetching transactions for Q3 2024.
+[2024-08-01 09:05:01,800] [INFO] [AnalyticsEngine] Calculating total transaction volume.
+[2024-08-01 09:05:01,805] [CRITICAL] [AnalyticsEngine] Unrecoverable error during calculation.
+Traceback (most recent call last):
+  File "/app/services/analytics_engine.py", line 258, in calculate_volume
+    total_volume += trade['amount']
+TypeError: unsupported operand type(s) for +=: 'int' and 'NoneType'
+[2024-08-01 09:05:01,901] [ERROR] [ReportGenerator] Failed to generate report 'Transaction Volume Q3' due to calculation error.
+[2024-08-01 09:06:00,000] [INFO] [APIService] Health check endpoint returned 200 OK. 

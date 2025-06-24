@@ -1,0 +1,12 @@
+[2024-08-02 11:00:05,111] [INFO] [AuthService] User 'test_user' logged in successfully.
+[2024-08-02 11:00:10,222] [INFO] [OrderService] User 'test_user' initiated a new trade order.
+[2024-08-02 11:00:11,333] [INFO] [RiskEngine] Validating trade order #T12345 against risk limits.
+[2024-08-02 11:00:12,444] [WARNING] [PricingService] Real-time pricing feed is delayed by 3 seconds. Using cached prices.
+[2024-08-02 11:00:13,555] [INFO] [OrderService] Risk validation passed for order #T12345.
+[2024-08-02 11:00:14,666] [INFO] [ExecutionEngine] Submitting order #T12345 to the exchange.
+[2024-08-02 11:00:15,777] [CRITICAL] [ExecutionEngine] Failed to submit order to exchange.
+Traceback (most recent call last):
+  File "/app/services/execution_engine.py", line 88, in submit_order
+    connection.send(order_data)
+ConnectionRefusedError: [Errno 111] Connection refused by exchange endpoint
+[2024-08-02 11:00:16,888] [INFO] [NotificationService] Sent failure alert for order #T12345 to 'test_user'. 

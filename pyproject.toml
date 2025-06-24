@@ -1,0 +1,51 @@
+[project]
+name = "ai-tester"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aiofiles>=23.2.1",
+    "async-typer>=0.1.8",
+    "fastapi>=0.115.13",
+    "httpx>=0.28.1",
+    "langchain>=0.3.26",
+    "langchain-community>=0.3.26",
+    "langchain-core>=0.2.18",
+    "langchain-ollama>=0.3.3",
+    "langchain-openai>=0.1.17",
+    "langgraph>=0.4.8",
+    "ollama>=0.5.1",
+    "openai>=1.90.0",
+    "pandas>=2.3.0",
+    "pydantic>=2.7.4",
+    "python-dotenv>=1.1.0",
+    "pyyaml>=6.0.1",
+    "requests>=2.32.4",
+    "rich>=14.0.0",
+    "tiktoken>=0.9.0",
+]
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+    "flake8>=7.3.0",
+    "isort>=6.0.1",
+    "mypy>=1.16.1",
+    "pytest>=8.4.1",
+    "ruff>=0.12.0",
+]
+
+[tool.setuptools]
+packages = ["app", "config"]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+# Enable Pyflakes (F), pycodestyle (E, W), and isort (I) rules.
+select = ["E", "W", "F", "I"]
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
