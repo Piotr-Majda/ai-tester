@@ -1,20 +1,33 @@
 import re
 from collections import namedtuple
+from pathlib import Path
 
 import aiofiles
 import pandas as pd
-from rich import console
+import yaml
+from rich.console import Console
 
 from app.agent.agent_state import AgentState
 
+console = Console()
+
 # A robust regex for a common log format: [TIMESTAMP] [LEVEL] [COMPONENT] Message
 # Example: [2024-07-29 10:00:00,123] [INFO] [AuthService] User 'admin' logged in successfully.
-log_pattern = re.compile(
-    r"^\[(?P<timestamp>.*?)\]\s+"
-    r"\[(?P<log_level>\w+)\]\s+"
-    r"\[(?P<component>.*?)\]\s+"
-    r"(?P<message>.*)$"
-)
+
+
+# Load settings.yaml
+with open(Path("config/settings.yaml"), "r") as f:
+    config = yaml.safe_load(f)
+
+log_format = config["log"]["format"]
+structure = config["log"]["structure"]
+
+fields = list(structure.keys())  # e.g., ["timestamp", "log_level", "component", "message"]
+
+# Dynamically create LogEntry
+LogEntry = namedtuple("LogEntry", fields)
+
+log_pattern = re.compile(log_format)
 
 
 async def parse_log_file(state: AgentState) -> dict:
@@ -23,9 +36,6 @@ async def parse_log_file(state: AgentState) -> dict:
     """
     log_file_path = state["log_file_path"]
     log_entries = []
-    LogEntry = namedtuple(
-        "LogEntry", ["timestamp", "log_level", "component", "message"]
-    )
 
     try:
         async with aiofiles.open(log_file_path, "r", encoding="utf-8") as f:

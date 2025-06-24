@@ -78,7 +78,7 @@ ai_tester/
 
 ## Configuration
 
-Edit `config/settings.yaml` to configure your desired LLM provider.
+Edit `config/settings.yaml` to configure your desired LLM provider and log format.
 
 **Example for OpenAI:**
 
@@ -103,6 +103,26 @@ llm:
   model: "llama3"
   url: "http://localhost:11434"
 ```
+
+### Log Format and Structure
+
+You can define your log format and structure in the `config/settings.yaml` file. The parser dynamically generates the log entry fields and their order based on the `structure` section. This makes the tool flexible and adaptable to different log formats without code changes.
+
+**Example:**
+
+```yaml
+log:
+  format: '^\[(?P<timestamp>.*?)\]\s+\[(?P<log_level>\w+)\]\s+\[(?P<component>.*?)\]\s+(?P<message>.*)$'
+  structure:
+    timestamp: '\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2},\d{3}' # e.g., 2024-08-01 09:01:12,400
+    log_level: "INFO|WARNING|ERROR|CRITICAL|DEBUG"
+    component: "[A-Za-z]+"
+    message: ".*"
+```
+
+- **format:** The regex pattern for parsing each log line. Use named groups matching the keys in `structure`.
+- **structure:** Defines the expected fields and their validation regex. The parser will use these keys to generate the log entry structure and extract values in the specified order.
+- To support a new log format, simply update the `format` and `structure` in the config file.
 
 ## Usage
 

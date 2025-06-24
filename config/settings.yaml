@@ -5,3 +5,16 @@ llm:
   model: "gpt-4o-mini" # phi // llama3 // gpt-3.5-turbo // gpt-4o-mini
   url: "http://localhost:11434"  # ollama default host http://localhost:11434
   api-key: ${LLM_API_KEY}
+
+log:
+  # Regex pattern for the entire log line.
+  # Use named groups: timestamp, level, service, message
+  # Example for: [2024-08-01 09:01:12,400] [INFO] [ReportGenerator] Message here
+  format: '^\[(?P<timestamp>.*?)\]\s+\[(?P<log_level>\w+)\]\s+\[(?P<component>.*?)\]\s+(?P<message>.*)$'
+
+  # Structure: regex for each field (optional, for extra validation)
+  structure:
+    timestamp: '\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2},\d{3}'  # e.g., 2024-08-01 09:01:12,400
+    log_level: 'INFO|WARNING|ERROR|CRITICAL|DEBUG'
+    component: '[A-Za-z]+'  # Service or component name
+    message: '.*'         # The log message
