@@ -10,14 +10,30 @@ AI Tester is built around a modular AI workflow, not a persistent AI agent. The 
 
 Each execution of AI Tester runs the workflow from start to finish on the provided log file(s), producing structured analysis and reports without maintaining long-term state or goals.
 
+## Architecture Highlights
+
+- **Modular Workflow:** Each step (parsing, analysis, reporting) is a separate, testable component orchestrated by LangGraph.
+- **Config-Driven Parsing:** Log format and structure are defined in YAML, enabling easy adaptation to new log sources without code changes.
+- **Structured Data Flow:** Uses Pydantic models for type-safe, validated data exchange between workflow steps.
+- **Separation of Concerns:** Core logic is decoupled from CLI/web, supporting future extensibility (e.g., API or web app integration).
+- **Extensible Design:** New parsers, analyzers, or report generators can be added with minimal changes to the workflow.
+
+## Engineering Highlights
+
+- **Type Safety:** Pydantic and type hints ensure robust, predictable data handling throughout the codebase.
+- **Testability:** Modular components and config-driven design make unit and integration testing straightforward.
+- **Modern Tooling:** Utilizes Typer for CLI, LangGraph for workflow orchestration, and uv for dependency management.
+- **Containerization:** Docker support for reproducible, environment-agnostic deployment.
+- **Developer Experience:** Clean code structure, clear documentation, and rich CLI output for usability and maintainability.
+
 ## Features
 
-- **Automated Log Analysis**: Parses and understands various log formats to identify critical information.
-- **Intelligent Bug Detection**: Uses AI to find potential bugs and errors that might be missed during manual review.
-- **Comprehensive Reporting**: Generates detailed reports summarizing the findings, including stack traces and error frequencies.
-- **Actionable Recommendations**: Provides suggestions on where to focus debugging efforts and potential root causes.
-- **Flexible LLM Backend**: Easily switch between local models using Ollama and powerful cloud-based models from OpenAI.
-- **Extensible Parsers**: Add new log parsers to support custom log formats from your applications.
+- 🚀 **Automated Log Analysis**: Parses and understands various log formats to identify critical information.
+- 🐞 **Intelligent Bug Detection**: Uses AI to find potential bugs and errors that might be missed during manual review.
+- 📊 **Comprehensive Reporting**: Generates detailed reports summarizing the findings, including stack traces and error frequencies.
+- 💡 **Actionable Recommendations**: Provides suggestions on where to focus debugging efforts and potential root causes.
+- 🔄 **Flexible LLM Backend**: Easily switch between local models using Ollama and powerful cloud-based models from OpenAI.
+- 🧩 **Extensible Parsers**: Add new log parsers to support custom log formats from your applications.
 
 ## Architecture Overview
 
